@@ -26,7 +26,7 @@ jobs:
     - name: Ping Supabase
       env:
         SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_KEY }}
+        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
       run: |
         cat > ping-supabase.js << 'EOF'
         const { createClient } = require('@supabase/supabase-js');
