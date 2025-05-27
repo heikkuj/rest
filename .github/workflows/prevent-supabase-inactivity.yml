@@ -1,0 +1,72 @@
+name: Prevent Supabase Inactivity
+
+on:
+  schedule:
+    - cron: '0 12 * * 1,4'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        
+    - name: Install dependencies
+      run: |
+        npm init -y
+        npm install @supabase/supabase-js
+        
+    - name: Ping Supabase
+      env:
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_KEY }}
+      run: |
+        cat > ping-supabase.js << 'EOF'
+        const { createClient } = require('@supabase/supabase-js');
+        
+        async function pingSupabase() {
+          try {
+            const supabase = createClient(
+              process.env.NEXT_PUBLIC_SUPABASE_URL,
+              process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+            );
+            
+            console.log('Pinging Supabase...');
+            
+            const { data, error } = await supabase
+              .from('_health_check')
+              .select('*')
+              .limit(1);
+            
+            if (error && !error.message.includes('does not exist')) {
+              console.log('❌ Error pinging Supabase:', error.message);
+              process.exit(1);
+            }
+            
+            console.log('Successfully pinged Supabase project');
+            console.log('Timestamp:', new Date().toISOString());
+            
+            const { data: authData } = await supabase.auth.getSession();
+            console.log('Auth service is responsive');
+            
+          } catch (error) {
+            console.error('Failed to ping Supabase:', error.message);
+            process.exit(1);
+          }
+        }
+        
+        pingSupabase();
+        EOF
+        
+        node ping-supabase.js
+        
+    - name: Log completion
+      run: |
+        echo "Supabase inactivity prevention ping completed at $(date)"
