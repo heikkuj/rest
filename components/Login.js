@@ -30,38 +30,40 @@ export default function Login() {
         }
 
         return (
-            <div className=''>
-                <div>
-                    <h1>{isSignUp ? 'Sign Up' : 'Sign In'}</h1>
-                </div>
-                <div>
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <label htmlFor='email'>Email</label>
-                            <input
+            <div className='flex flex-col m-[20px] p-[20px] bg-orange-400 rounded-2xl'>
+
+                {/* <div className='flex justify-center'>
+                    <h1 className='font-bold mb-4'>{isSignUp ? 'Opprett ny bruker' : 'Logg inn'}</h1>
+                </div> */}
+
+                <div className='flex flex-col items-center'>
+                    <form onSubmit={handleSubmit} className='flex flex-col w-full items-center'>
+                        <input
                             type='email'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            placeholder='Epost'
                             required
+                            className='p-2 my-1 w-full rounded-md'
                             />
-                        </div>
-                        <div>
-                            <label htmlFor='password'>Password</label>
-                            <input 
+
+                        <input 
                             type='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            placeholder='Passord'
                             required
+                            className='p-2 my-1 w-full rounded-md'
                             />
-                        </div>
 
-                        <button type='submit'>
-                            {isSignUp ? 'SignUp' : 'SignIn'}
+                        <button type='submit' 
+                        className='font-bold bg-white w-fit rounded-2xl px-3 py-2 m-3'>
+                            {isSignUp ? 'Opprett bruker' : 'Logg inn'}
                         </button>
                     </form>
                     <div>
                         <button onClick={() => setIsSignUp(!isSignUp)}>
-                            {isSignUp ? 'Har du allerede en bruker? Logg på' : 'Lag ny bruker'}
+                            {isSignUp ? 'Har du allerede en bruker? Logg på' : 'Ny bruker?'}
                         </button>
 
                         {message && (
