@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
+body {
+  background-color: white;
+}
+
 
 @layer base {
   :root {
@@ -119,3 +123,5 @@
     @apply bg-background text-foreground;
   }
 }
+
+
