@@ -64,9 +64,13 @@ export default function Login() {
                             {isSignUp ? 'Opprett bruker' : 'Logg inn'}
                         </button>
                     </form>
-                    <div className='flex justify-center'>
-                        <button onClick={() => setIsSignUp(!isSignUp)}>
-                            {isSignUp ? 'Har du allerede en bruker? Logg på' : 'Ny bruker?'}
+                    <div className='flex flex-col text-center justify-center'>
+                        <div>
+                            {isSignUp && <p>Har du allerede bruker?</p>}
+                        </div>
+                        <button className='underline'
+                        onClick={() => setIsSignUp(!isSignUp)}>
+                            {isSignUp ? 'Logg på' : 'Ny bruker?'}
                         </button>
 
                         {message && (
