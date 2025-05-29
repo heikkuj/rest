@@ -7,6 +7,7 @@ import {
   CardContent,
 } from "@/components/ui/card"
 import Header from './Header';
+import Message from './Message';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -38,7 +39,7 @@ export default function Login() {
             <div>
                 <Header />
                 <div className='flex flex-col m-[20px] p-[20px]'>
-                <Card className='h-auto bg-orange-400'>
+                <Card className='h-auto mb-10 bg-orange-400'>
                     <CardContent>
                         <form onSubmit={handleSubmit} className='flex flex-col w-full items-center py-2'>
                         <input
@@ -60,7 +61,7 @@ export default function Login() {
                             />
 
                         <button type='submit' 
-                        className='font-bold bg-white w-fit rounded-2xl px-3 py-2 m-3'>
+                        className='font-bold bg-white w-auto rounded-2xl px-3 py-2 m-3'>
                             {isSignUp ? 'Opprett bruker' : 'Logg inn'}
                         </button>
                     </form>
@@ -81,6 +82,7 @@ export default function Login() {
                     </div>
                     </CardContent>
                 </Card>
+                <Message />
             </div>
         </div>
         )
