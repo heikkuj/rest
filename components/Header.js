@@ -1,16 +1,7 @@
-import { useState, React } from 'react';
-import { Login } from './Login';
-import { useAuth } from "../context/AuthContext";
+import React from 'react';
 
 
 export default function Header() {
-    const { user, signOut } = useAuth();
-
-    const handleSignOut = async () => {
-      setIsLoggedIn(false);
-      await signOut();
-    };
-
   return (
     <div>
       <div className='flex flex-col w-full mt-7 mb-5 text-center'>
