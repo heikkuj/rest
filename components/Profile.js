@@ -1,38 +1,45 @@
 'use client'
 
-import { useAuth } from "../context/AuthContext";
-import { useState } from "react";
+import { Card, CardHeader, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
+import Header from "./Header";
+import Greeting from "./Greeting";
+import ProfileCard from './ProfileCard';
+import { useAuth } from "@/context/AuthContext";
 
 export default function Profile() {
-    const [showID, setShowID] = useState(false);
-    const { user, signOut } = useAuth();
 
-    const toggleIdVisibility = () => {
-        setShowID(!showID);
-    };
-
+    const { signOut } = useAuth();
     const handleSignOut = async () => {
         await signOut();
     };
 
     return (
-        <div className='flex flex-col p-[20px]'>
-            <div className="font-coiny">
-                <h1>Min profil</h1>
-            </div>
+        <div className="flex flex-col items-center">
+            <Header />
+            <div className='flex flex-col p-[20px]'>
+                <Card className='h-[50%] w-[90vw] mb-10 bg-orange-400'>
 
-            {/* Profile information */}
-            <div className='flex flex-col gap-1'>
-                <p>E-post: {user.email}</p>
-                <p>Bruker-ID: <button className="underline" onClick={toggleIdVisibility}>
-                    {showID ? 'Skjul' : 'Vis'}</button>
-                    {showID && (
-                    <span> {user?.id} </span>
-                    )}
-                </p>
+                    <CardHeader className="font-coiny text-xl">
+                        <Greeting />
+                    </CardHeader>
+
+                    <CardContent className="">
+                        <ProfileCard />
+
+                        <Button variant={"outline"} className="mt-2 w-fit"
+                    onClick={handleSignOut}>Logg ut</Button>
+                    </CardContent>
+
+                </Card>
             </div>
-            <button className="mb-3 mt-5 underline"
-            onClick={handleSignOut}>Logg ut</button>
-            </div>
+        </div>
     )
 }
+
+
+
+
+
+
+
