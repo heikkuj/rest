@@ -14,5 +14,5 @@ export default function Greeting() {
             };
     }, []);
 
-    return <span>{message}</span>
+    return <span className="drop-shadow-white">{message}</span>
 }

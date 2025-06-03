@@ -1,10 +1,10 @@
 import ProtectedRoute from '../components/ProtectedRoute';
-import Dashboard from '../components/Dashboard';
+import Profile from '@/components/Profile';
 
 export default function Home() {
   return (
     <ProtectedRoute>
-      <Dashboard />
+      <Profile />
     </ProtectedRoute>
   );
 }
