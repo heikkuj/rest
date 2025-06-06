@@ -6,6 +6,7 @@ import {
   Card,
   CardContent,
 } from "@/components/ui/card"
+import { Button } from './ui/button';
 import Header from './Header';
 import Message from './Message';
 
@@ -35,6 +36,12 @@ export default function Login() {
             }
         }
 
+        const resetPassoword = async () => {
+            await supabase.auth.resetPasswordForEmail('valid.email@supabase.io', {
+  redirectTo: '/reset-password',
+})
+        }
+
         return (
             <div>
                 <Header />
@@ -42,44 +49,50 @@ export default function Login() {
                 <Card className='h-auto mb-10 bg-orange-400'>
                     <CardContent>
                         <form onSubmit={handleSubmit} className='flex flex-col w-full items-center py-2'>
-                        <input
+                            <h1 className='font-bold place-self-start mt-3'>E-postadresse</h1>
+                            <input
                             type='email'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Epost'
+                            placeholder='Skriv inn e-postadresse'
                             required
                             className='p-2 my-1 w-full rounded-md'
                             />
 
-                        <input 
+                            <h1 className='font-bold place-self-start mt-3'>Passord</h1>
+                            <input 
                             type='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder='Passord'
+                            placeholder='Skriv inn passord'
                             required
                             className='p-2 my-1 w-full rounded-md'
                             />
 
-                        <button type='submit' 
-                        className='font-bold bg-white w-auto rounded-2xl px-3 py-2 m-3'>
-                            {isSignUp ? 'Opprett bruker' : 'Logg inn'}
-                        </button>
-                    </form>
-                    <div className='flex flex-col text-center justify-center'>
-                        <div>
-                            {isSignUp && <p>Har du allerede bruker?</p>}
-                        </div>
-                        <button className='underline'
-                        onClick={() => setIsSignUp(!isSignUp)}>
-                            {isSignUp ? 'Logg på' : 'Ny bruker?'}
-                        </button>
-
-                        {message && (
-                            <div>
-                                {message}
+                            <div className='flex flex-row gap-3 place-self-start'>
+                                <Button type='submit' 
+                            className='font-bold w-auto px-3 py-2 my-3'>
+                                {isSignUp ? 'Opprett bruker' : 'Logg inn'}
+                            </Button>
+                            <button onClick={resetPassoword}
+                            className='underline italic'>{isSignUp ? '' : 'Glemt passord?'}</button>
                             </div>
-                        )}
-                    </div>
+                        </form>
+
+                        <div>
+                            <button className='underline'
+                            onClick={() => setIsSignUp(!isSignUp)}>
+                                {isSignUp ? 'Har du allerede bruker? Logg på' : 'Ny bruker?'}
+                            </button>
+                        </div>
+
+                        <div className='flex flex-col text-center justify-center'>
+                            {message && (
+                                <div>
+                                    {message}
+                                </div>
+                            )}
+                        </div>
                     </CardContent>
                 </Card>
                 <Message />

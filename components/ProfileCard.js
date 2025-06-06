@@ -25,6 +25,7 @@ export default function ProfileCard() {
                     {/* Profile information */}
                     <div className='flex flex-col gap-1'>
                         <p>E-post: {user.email}</p>
+                        <Button variant={"secondary"}>Endre</Button>
                         <p>Bruker-ID: 
                             <Button variant={"secondary"} className="mx-2" onClick={toggleIdVisibility}>
                             {showID ? 'Skjul' : 'Vis'}</Button>
