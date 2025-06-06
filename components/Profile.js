@@ -6,7 +6,6 @@ import Header from "./Header";
 import Greeting from "./Greeting";
 import ProfileCard from './ProfileCard';
 import { useAuth } from "@/context/AuthContext";
-import { supabase } from "@/lib/supabase";
 
 export default function Profile() {
 
@@ -14,10 +13,6 @@ export default function Profile() {
     const handleSignOut = async () => {
         await signOut();
     };
-
-    // const changePassword = async () => {
-    //     await supabase.auth.updateUser({ password: 'new_password' });
-    // };
 
     return (
         <div className="flex flex-col items-center">
